@@ -1,0 +1,57 @@
+<html>
+<head>
+<link rel="stylesheet" href="./lib/treeselectjs.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link href="https://www.cssscript.com/demo/sticky.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="family_tree" >
+</div>
+
+
+  <button id="result-Btn" onclick="callBtnVals()"
+    style="margin: 10px 10px; padding: 5px;"
+  >Test Get Button</button>
+
+  <button id="result-Btn" onclick="loadAnotherDefaultValues()"
+  style="margin: 10px 10px; padding: 5px;"
+>Load Another Set</button>
+</body>
+
+<script type="module"
+  src="./js/tree.js"
+>
+
+</script>
+<script >
+  function callBtnVals(){
+    let childOfArr = [];
+    if(window.treeRelatinVals ){
+      //console.log('Result', treeValues, treeRelatinVals);
+      window.treeRelatinVals.map(relateVal => {
+          const existItem = childOfArr.find(chItem => chItem == relateVal.childOf);
+          if(!existItem){
+              childOfArr.push(relateVal.childOf);
+          }
+      })
+      //console.log("ParentName Array", childOfArr);
+    }else{
+      console.log("Empty Data")
+    }
+    console.log("------Familes ------------ "+ childOfArr);
+    console.log("------Api Ids ------------ "+ treeValues);
+  }
+
+  function loadAnotherDefaultValues(){
+    custom_default_family_api_array =
+            [
+            {"family":"GSuite","family_value":"gsuite","apiId":4,"api":"gsuite_api1","isDefault":"Y"},
+            {"family":"Maps","family_value":"maps","apiId":7,"api":"maps_api2","isDefault":"Y"},
+            {"family":"Maps","family_value":"maps","apiId":8,"api":"maps_api3","isDefault":"Y"},
+            {"family":"Others","family_value":"others","apiId":9,"api":"other_api1","isDefault":"Y"}
+            ];   // Load this array into the text box when click on "Load Another Set" button 
+    alert("Load Another Default Parent - Child Arrays");
+  }
+</script>
+</html>
