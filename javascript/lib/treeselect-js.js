@@ -69,8 +69,31 @@ class Treeselect {
             emptyText: this.emptyText
         }));
         var {groupedIds: e, ids: i} = s.selectedNodes;
+        let out = [];
+        e.map(tItem => {
+                        if(tItem.isGroup && tItem.childOf == 0){
+                            out.unshift( tItem );
+                        }else{
+                            const exist = out.find(item => item.id == tItem.childOf);
+                            if(!exist){
+                                const parentOb = this.options.find(pItem => pItem.value == tItem.childOf);
+                                out.push({
+                                    checked: false,
+                                    childOf: 0,
+                                    hidden: false,
+                                    id: parentOb.value,
+                                    isClosed: false,
+                                    isGroup: false,
+                                    level: 0,
+                                    name: parentOb.name
+                                });
+                            }
+
+                        }
+                    })
+
         const n = new TreeselectInput({
-            value: this.grouped ? e : i,
+            value: out,
             showTags: this.showTags,
             clearable: this.clearable,
             isAlwaysOpened: this.alwaysOpen,
